@@ -1,3 +1,7 @@
+//CS361 
+//Project B
+//Group 12
+//Quiz Generator
 function addText(inputText, id){
   var newContent = document.createTextNode(inputText); 
   newContent.id = "textID"
@@ -5,7 +9,7 @@ function addText(inputText, id){
   //newContent.textContent = ""
 }
 
-function addBreak(){
+function addBreak(){                            //essentially a newline function
   var br = document.createElement("br");
   document.body.appendChild(br);
 }
@@ -18,7 +22,7 @@ function addSpan(inputText, inputID){
 
 }
 
-function addInputBox(inputValue, inputID){
+function addInputBox(inputValue, inputID){            //adds the box where the user can input their answer
     var input = document.createElement("input");
     input.type = "text";
     input.id = inputID
@@ -27,9 +31,9 @@ function addInputBox(inputValue, inputID){
 }
 
 var boxes = 0
-var answers = []
+var answers = []        //array containing the answers to the given questions
 
-function markQuestions(){
+function markQuestions(){     //displays the correct answers next to each question
 
   var count;
   for (count = 0; count <= boxes; count++){
@@ -38,12 +42,12 @@ function markQuestions(){
 
 } 
 
-function generateQuestions(){
+function generateQuestions(){         //ends the question making period, and begins the quiz
   addBreak();
   addBreak();
 
   addText("                ")
-  addText("QUIZ")  
+  addText("QUIZ")                     //adding a title
   addBreak();
 
   var count;
@@ -62,7 +66,7 @@ function generateQuestions(){
 } 
 
 function setup(){
-  var addQuestionButton = document.createElement('BUTTON');
+  var addQuestionButton = document.createElement('BUTTON');             //setting up the three buttons that the user can use
   var generateQuestionButton = document.createElement('BUTTON');
   var markQuestionButton = document.createElement('BUTTON');
   
@@ -71,7 +75,7 @@ function setup(){
   markQuestionButton.textContent = "Mark questions"
   generateQuestionButton.textContent = "Generate questions"
   
-  addQuestionButton.onclick = function() {
+  addQuestionButton.onclick = function() {        //when pressed add another section to enter a new question
     addBreak();
     addInputBox(boxes, "Q"+boxes); 
     addInputBox(boxes *2, "A"+boxes);
@@ -79,15 +83,15 @@ function setup(){
     addBreak();
     boxes+= 1
   }
-  markQuestionButton.onclick = function(){
+  markQuestionButton.onclick = function(){          //when pressed, mark the questions
     markQuestions()
   }
-  generateQuestionButton.onclick = function(){
+  generateQuestionButton.onclick = function(){      //when pressed, start the quiz
     generateQuestions()
   }
   
   document.body.appendChild(addQuestionButton);
-  document.body.appendChild(generateQuestionButton);
+  document.body.appendChild(generateQuestionButton);        //add the buttons specified above
   document.body.appendChild(markQuestionButton);
   addBreak();
   addBreak();
