@@ -69,12 +69,12 @@ function setup(){
   var addQuestionButton = document.createElement('BUTTON');             //setting up the three buttons that the user can use
   var generateQuestionButton = document.createElement('BUTTON');
   var markQuestionButton = document.createElement('BUTTON');
-  
-  
-  addQuestionButton.textContent = "Add question"
+  addQuestionButton.textContent = "Add question";
+  addQuestionButton.setAttribute("id", "button1");
   markQuestionButton.textContent = "Mark questions"
-  generateQuestionButton.textContent = "Generate questions"
-  
+  generateQuestionButton.textContent = "Generate questions";
+  generateQuestionButton.setAttribute("id", "button2");
+  markQuestionButton.setAttribute("id", "button3");
   addQuestionButton.onclick = function() {        //when pressed add another section to enter a new question
     addBreak();
     addInputBox(boxes, "Q"+boxes); 
