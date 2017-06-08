@@ -36,7 +36,7 @@ var answers = []        //array containing the answers to the given questions
 function markQuestions(){     //displays the correct answers next to each question
 
   var count;
-  for (count = 0; count <= boxes; count++){
+ for (count = 0; count <= boxes; count++){
     document.getElementById("T"+count).textContent = document.getElementById("A"+count).value 
   }
 
@@ -47,7 +47,7 @@ function generateQuestions(){         //ends the question making period, and beg
   addBreak();
 
   addText("                ")
-  addText("QUIZ")                     //adding a title
+  addText("QUIZ","generate")                     //adding a title
   addBreak();
 
   var count;
