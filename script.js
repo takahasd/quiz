@@ -1,7 +1,3 @@
-//CS361 
-//Project B
-//Group 12
-//Quiz Generator
 function addText(inputText, id){
   var newContent = document.createTextNode(inputText); 
   newContent.id = "textID"
@@ -9,7 +5,7 @@ function addText(inputText, id){
   //newContent.textContent = ""
 }
 
-function addBreak(){                            //essentially a newline function
+function addBreak(){
   var br = document.createElement("br");
   document.body.appendChild(br);
 }
@@ -22,7 +18,7 @@ function addSpan(inputText, inputID){
 
 }
 
-function addInputBox(inputValue, inputID){            //adds the box where the user can input their answer
+function addInputBox(inputValue, inputID){
     var input = document.createElement("input");
     input.type = "text";
     input.id = inputID
@@ -31,30 +27,30 @@ function addInputBox(inputValue, inputID){            //adds the box where the u
 }
 
 var boxes = 0
-var answers = []        //array containing the answers to the given questions
 
-function markQuestions(){     //displays the correct answers next to each question
+function markQuestions(){
 
   var count;
- for (count = 0; count <= boxes; count++){
-    document.getElementById("T"+count).textContent = document.getElementById("A"+count).value 
+  for (count = 0; count <= boxes; count++){
+    document.getElementById("T"+count).textContent = answers[count]
+    if (document.getElementById("S"+count).value == answers[count])
+      document.getElementById("S"+count).style.backgroundColor = "green"
+    else      
+      document.getElementById("S"+count).style.backgroundColor = "red"
   }
 
 } 
 
-function generateQuestions(){         //ends the question making period, and begins the quiz
-  addBreak();
-  addBreak();
-
+function generateQuestions(){
   addText("                ")
-  addText("QUIZ","generate")                     //adding a title
+  addText("QUIZ")  
   addBreak();
 
   var count;
   for (count = 0; count < boxes; count++){
 
     addText("   ")
-    addText(document.getElementById("Q"+count).value)  
+    addText(questions[count])  
     addBreak();
     addInputBox("", "S"+count);
     addText("   ")
@@ -63,19 +59,70 @@ function generateQuestions(){         //ends the question making period, and beg
     addBreak();
   }
 
+
+  var markQuestionButton = document.createElement('BUTTON');
+  markQuestionButton.setAttribute("id", "button3");
+  markQuestionButton.textContent = "Mark questions"
+  
+  markQuestionButton.onclick = function(){
+    markQuestions()
+  }
+
+
+
+  document.body.appendChild(markQuestionButton);
+
+  var backButton = document.createElement('BUTTON');
+  backButton.textContent = "BACK"
+  
+  backButton.onclick = function(){
+    window.location.reload(false); 
+  }
+
+  document.body.appendChild(backButton);
+
+} 
+
+
+
+  var answers = []
+  var questions = []
+
+function readQuestion(){
+  var skipped = 0
+  for (count = 0; count < boxes; count++){
+    if (Math.floor((Math.random() * 1000) + 1) %4 == 0 ){
+      console.log("skip")
+      skipped++
+      continue;
+    }
+    questions.push(document.getElementById("Q"+count).value)
+    answers.push(document.getElementById("A"+count).value)
+  }
+  boxes -= skipped
+  console.log(questions)
+  console.log(answers)
+}
+
+function fakeQuestion(){
+  var count;
+  for (count = 0; count < boxes; count++){
+    console.log(document.getElementById("Q"+count).value)
+  }
+
 } 
 
 function setup(){
-  var addQuestionButton = document.createElement('BUTTON');             //setting up the three buttons that the user can use
+  var addQuestionButton = document.createElement('BUTTON');
   var generateQuestionButton = document.createElement('BUTTON');
-  var markQuestionButton = document.createElement('BUTTON');
-  addQuestionButton.textContent = "Add question";
-  addQuestionButton.setAttribute("id", "button1");
-  markQuestionButton.textContent = "Mark questions"
-  generateQuestionButton.textContent = "Generate questions";
-  generateQuestionButton.setAttribute("id", "button2");
-  markQuestionButton.setAttribute("id", "button3");
-  addQuestionButton.onclick = function() {        //when pressed add another section to enter a new question
+  addQuestionButton.setAttribute("id", "button1")
+  generateQuestionButton.setAttribute("id","button2")
+  addQuestionButton.textContent = "Add question"
+  generateQuestionButton.textContent = "Generate questions"
+
+
+
+  addQuestionButton.onclick = function() {
     addBreak();
     addInputBox(boxes, "Q"+boxes); 
     addInputBox(boxes *2, "A"+boxes);
@@ -83,16 +130,33 @@ function setup(){
     addBreak();
     boxes+= 1
   }
-  markQuestionButton.onclick = function(){          //when pressed, mark the questions
-    markQuestions()
-  }
-  generateQuestionButton.onclick = function(){      //when pressed, start the quiz
-    generateQuestions()
+  generateQuestionButton.onclick = function(){
+
+  //alert(answers)
+  //alert(questions)
+    readQuestion()
+
+  while (document.body.hasChildNodes()) {
+      document.body.removeChild(document.body.lastChild);
   }
   
+    generateQuestions()
+    //fakeQuestion()
+    /*
+    for (count = 0; count <= boxes; count++){
+      var child = document.getElementById("T"+count);
+      child.parentNode.removeChild(child);
+      child = document.getElementById("Q"+count);
+      child.parentNode.removeChild(child);
+      child = document.getElementById("B"+count);
+      child.parentNode.removeChild(child);
+      
+    }*/
+    }
+
+  
   document.body.appendChild(addQuestionButton);
-  document.body.appendChild(generateQuestionButton);        //add the buttons specified above
-  document.body.appendChild(markQuestionButton);
+  document.body.appendChild(generateQuestionButton);
   addBreak();
   addBreak();
   addText("                ")
@@ -107,3 +171,18 @@ setup();
 
 
 
+/*
+
+  addBreak();
+  addBreak();
+  addSpan("Todo:")  
+  addBreak();
+  addText("output quiz to some sort of file such that it can be loaded separately from generation")  
+  addBreak();
+  addText("student able to export answers");
+  addBreak();
+  addText("be able to mark student right/wrong with color");
+  addBreak();
+  addText("different types of quizes");
+  //addText("")  
+  */
