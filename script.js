@@ -91,11 +91,6 @@ function generateQuestions(){
 function readQuestion(){
   var skipped = 0
   for (count = 0; count < boxes; count++){
-    if (Math.floor((Math.random() * 1000) + 1) %4 == 0 ){
-      console.log("skip")
-      skipped++
-      continue;
-    }
     questions.push(document.getElementById("Q"+count).value)
     answers.push(document.getElementById("A"+count).value)
   }
