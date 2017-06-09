@@ -1,141 +1,141 @@
-function addText(inputText, id){
-  var newContent = document.createTextNode(inputText); 
-  newContent.id = "textID"
-  document.body.appendChild(newContent);
+function addText(inputText, id){                        //adds specified text to the html
+  var newContent = document.createTextNode(inputText);  //create the text 
+  newContent.id = "textID";
+  document.body.appendChild(newContent);        //add the text to the page
   //newContent.textContent = ""
 }
 
-function addBreak(){
+function addBreak(){                        //basically a newline function
   var br = document.createElement("br");
   document.body.appendChild(br);
 }
 
-function addSpan(inputText, inputID){
-  var span = document.createElement("span");
-  span.textContent = inputText
-  span.id = inputID
-  document.body.appendChild(span);
+function addSpan(inputText, inputID){       //adds span to the html
+  var span = document.createElement("span");        //create it
+  span.textContent = inputText;
+  span.id = inputID;
+  document.body.appendChild(span);          //append it
 
 }
 
-function addInputBox(inputValue, inputID){
-    var input = document.createElement("input");
+function addInputBox(inputValue, inputID){      //adds a user input box
+    var input = document.createElement("input");        //create the box
     input.type = "text";
-    input.id = inputID
-    input.value = inputValue
-    document.body.appendChild(input);
+    input.id = inputID;
+    input.value = inputValue;
+    document.body.appendChild(input);       //add it to the document
 }
 
-var boxes = 0
+var boxes = 0;
 
-function markQuestions(){
+function markQuestions(){               //grades the quiz after the user takes it
 
   var count;
-  for (count = 0; count <= boxes; count++){
-    document.getElementById("T"+count).textContent = answers[count]
-    if (document.getElementById("S"+count).value == answers[count])
-      document.getElementById("S"+count).style.backgroundColor = "green"
-    else      
-      document.getElementById("S"+count).style.backgroundColor = "red"
+  for (count = 0; count <= boxes; count++){         //loop through questions
+      document.getElementById("T" + count).textContent = answers[count];
+      if (document.getElementById("S" + count).value == answers[count])         //if correct,
+          document.getElementById("S" + count).style.backgroundColor = "green";      //make the box green
+      else
+          document.getElementById("S" + count).style.backgroundColor = "red";        //if wrong, make the box red
   }
 
 } 
 
-function generateQuestions(){
-  addText("                ")
-  addText("QUIZ")  
-  addBreak();
+function generateQuestions(){   //starts the quiz, using the added questions
+    addText("                ");
+    addText("QUIZ");
+  addBreak();           //title
 
   var count;
-  for (count = 0; count < boxes; count++){
+  for (count = 0; count < boxes; count++){//loop through questions
 
-    addText("   ")
-    addText(questions[count])  
+      addText("   ");
+      addText(questions[count]);  //print the question
     addBreak();
-    addInputBox("", "S"+count);
-    addText("   ")
-    addSpan(" ", "T"+count)
+    addInputBox("", "S"+count); //add the answer input box
+    addText("   ");
+    addSpan(" ", "T" + count);
     addBreak();
     addBreak();
   }
 
 
-  var markQuestionButton = document.createElement('BUTTON');
+  var markQuestionButton = document.createElement('BUTTON');    //adding the button for grading questions
   markQuestionButton.setAttribute("id", "button3");
-  markQuestionButton.textContent = "Mark questions"
+  markQuestionButton.textContent = "Mark questions";
   
-  markQuestionButton.onclick = function(){
-    markQuestions()
+  markQuestionButton.onclick = function(){              //defining what the mark questions button does
+      markQuestions();
   }
 
 
 
-  document.body.appendChild(markQuestionButton);
+  document.body.appendChild(markQuestionButton);        //adding it to the document
 
-  var backButton = document.createElement('BUTTON');
-  backButton.textContent = "BACK"
+  var backButton = document.createElement('BUTTON');        //adding the back button; goes back to the adding questions page
+  backButton.textContent = "BACK";
   
-  backButton.onclick = function(){
+  backButton.onclick = function(){          //defining what the back button does
     window.location.reload(false); 
   }
 
-  document.body.appendChild(backButton);
+  document.body.appendChild(backButton); //adding it to the document
 
 } 
 
 
 
-  var answers = []
-  var questions = []
+var answers = [];            //defining question and answer arrays
+var questions = [];
 
-function readQuestion(){
-  var skipped = 0
+function readQuestion(){            //reads in questions for creating the quiz
+    var skipped = 0;
   for (count = 0; count < boxes; count++){
-    questions.push(document.getElementById("Q"+count).value)
-    answers.push(document.getElementById("A"+count).value)
+      questions.push(document.getElementById("Q" + count).value);       //add to document
+      answers.push(document.getElementById("A" + count).value);
   }
-  boxes -= skipped
-  console.log(questions)
-  console.log(answers)
+  boxes -= skipped;         //for a feature we didn't complete
+  console.log(questions);
+  console.log(answers);
 }
 
-function fakeQuestion(){
+function fakeQuestion(){        //unused
   var count;
   for (count = 0; count < boxes; count++){
-    console.log(document.getElementById("Q"+count).value)
+      console.log(document.getElementById("Q" + count).value);
   }
 
 } 
 
-function setup(){
-  var addQuestionButton = document.createElement('BUTTON');
+function setup(){       //sets up the initial buttons and structure
+  var addQuestionButton = document.createElement('BUTTON');             //defining first two buttons
   var generateQuestionButton = document.createElement('BUTTON');
-  addQuestionButton.setAttribute("id", "button1")
-  generateQuestionButton.setAttribute("id","button2")
-  addQuestionButton.textContent = "Add question"
-  generateQuestionButton.textContent = "Generate questions"
+  addQuestionButton.setAttribute("id", "button1");
+  generateQuestionButton.setAttribute("id", "button2");
+  addQuestionButton.textContent = "Add question";
+  generateQuestionButton.textContent = "Generate questions";
 
 
 
   addQuestionButton.onclick = function() {
     addBreak();
-    addInputBox(boxes, "Q"+boxes); 
+    addInputBox(boxes, "Q"+boxes);      //adds input boxes for user to input questions and answers 
     addInputBox(boxes *2, "A"+boxes);
     
     addBreak();
-    boxes+= 1
+    boxes += 1;
   }
-  generateQuestionButton.onclick = function(){
+  generateQuestionButton.onclick = function(){          //defining what each button does
 
   //alert(answers)
   //alert(questions)
-    readQuestion()
+      readQuestion();
 
   while (document.body.hasChildNodes()) {
-      document.body.removeChild(document.body.lastChild);
+      document.body.removeChild(document.body.lastChild);   //remove the added question list before the quiz
   }
   
-    generateQuestions()
+  generateQuestions();
     //fakeQuestion()
     /*
     for (count = 0; count <= boxes; count++){
@@ -150,14 +150,14 @@ function setup(){
     }
 
   
-  document.body.appendChild(addQuestionButton);
+  document.body.appendChild(addQuestionButton);         //add the buttons to the document
   document.body.appendChild(generateQuestionButton);
   addBreak();
   addBreak();
-  addText("                ")
-  addText("Question")
-  addText("                              ")
-  addText("Answer")
+  addText("                ");
+  addText("Question");                       //label the input boxes
+  addText("                              ");
+  addText("Answer");
   addBreak();
 
 }
