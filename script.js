@@ -61,7 +61,6 @@ function generateQuestions(){
 
 
   var markQuestionButton = document.createElement('BUTTON');
-  markQuestionButton.setAttribute("id", "button3");
   markQuestionButton.textContent = "Mark questions"
   
   markQuestionButton.onclick = function(){
@@ -115,8 +114,7 @@ function fakeQuestion(){
 function setup(){
   var addQuestionButton = document.createElement('BUTTON');
   var generateQuestionButton = document.createElement('BUTTON');
-  addQuestionButton.setAttribute("id", "button1")
-  generateQuestionButton.setAttribute("id","button2")
+  
   addQuestionButton.textContent = "Add question"
   generateQuestionButton.textContent = "Generate questions"
 
