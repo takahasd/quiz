@@ -1,4 +1,4 @@
-# quiz Maker
+# Quiz Maker
 Repository for the quiz maker section of Project B group 12
 
 To run the quiz maker, open the index.html file in a web browser. Once the page is open, click "Add Question" to add a
